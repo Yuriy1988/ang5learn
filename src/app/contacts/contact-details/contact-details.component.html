@@ -1,0 +1,10 @@
+<div class="contact" *ngIf="contact">
+  <div>Detailed Contact Info</div>
+  <div>{{contact.name}}</div>
+  <div>{{contact.phoneNumber}}</div>
+  <div>{{contact.city}}</div>
+  <div>
+    <button (click)="onEditButtonClick(contact.id)">Edit</button>
+  </div>
+</div>
+
