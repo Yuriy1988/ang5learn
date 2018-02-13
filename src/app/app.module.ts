@@ -1,10 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
-import { ContactsModule } from './contacts/contacts.module';
+import { MoviesModule } from './movies/movies.module';
 import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
@@ -14,9 +13,8 @@ import { AppRoutingModule } from './app-routing.module';
   imports: [
     HttpClientModule,
     BrowserModule,
-    FormsModule,
     AppRoutingModule,
-    ContactsModule,
+    MoviesModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
