@@ -1,0 +1,27 @@
+.movie {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 37rem;
+  border: 0.1rem solid cornflowerblue;
+  width: 30rem;
+  margin: 0.2rem;
+  padding: 3rem;
+  font-size: 1.5rem;
+
+  div {
+    margin: 0.1rem;
+  }
+
+  .poster {
+    height: 30rem;
+    align-self: center;
+  };
+
+  :host {
+    div {
+      background-color: cornflowerblue;
+    }
+    background: green;
+  }
+}

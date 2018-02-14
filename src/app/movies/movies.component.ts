@@ -5,28 +5,48 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-movies',
   templateUrl: './movies.component.html',
-  styleUrls: ['./movies.component.css']
+  styleUrls: ['./movies.component.scss']
 })
 export class MoviesComponent implements OnInit {
   movies: Movie[];
-  selectedMovie: Movie = null;
+  // selectedMovie: Movie = null;
 
   constructor(
     private moviesService: MoviesService,
-    private router: Router,
+    // private router: Router,
   ) {}
 
   ngOnInit() {
-    console.log('fuck');
+   this.getMovies();
+  }
+
+  getMovies(): void {
     this.moviesService.getMovies()
       .subscribe(response => this.movies = response);
   }
 
-  navigateToEdit(id) {
-    return this.router.navigate(['edit', id]);
+  likeMovie(id: string): void {
+    const movie: Movie = this.movies.find(m => m.id === id);
+
+    this.moviesService.like(movie)
+      .subscribe(response => {
+        this.movies = this.movies.map(m => m.id === movie.id ? response : m );
+      });
   }
 
-  selectMovie(movie: Movie): void {
-    // this.moviesService.selectMovie(movie);
+  dislikeMovie(id: string): void {
+    const movie: Movie = this.movies.find(m => m.id === id);
+
+    this.moviesService.dislike(movie)
+      .subscribe(response => this.movies = this.movies
+        .map(m => m.id === movie.id ? response : m ));
   }
+
+  // navigateToEdit(id) {
+  //   return this.router.navigate(['edit', id]);
+  // }
+  //
+  // selectMovie(movie: Movie): void {
+  //   // this.moviesService.selectMovie(movie);
+  // }
 }

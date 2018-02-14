@@ -1,16 +1,18 @@
-<ul>
-  <li>{{movie.name}}</li>
-  <li>{{movie.id}}</li>
-  <li>{{movie.title}}</li>
-  <li>{{movie.posterUrl}}</li>
-  <li>{{movie.stars}}</li>
-  <li>{{movie.likes}}</li>
-  <li *ngFor="let genre of movie.genres">
-    {{genre}}
-  </li>
-  <li *ngFor="let actors of movie.actors">
-    {{actors}}
-  </li>
-  <li>{{movie.director}}</li>
-  <li>{{movie.description}}</li>
-</ul>
+<div class="movie">
+  <div>
+    <b>Title:</b> {{movie.title}}</div>
+  <div>
+    <b>Genres:</b> {{movie.genres.join(', ')}}
+  </div>
+  <img
+    [src]="movie.posterUrl"
+    alt="There is no poster"
+    class="poster"
+  />
+  <div>Stars: {{movie.stars}}</div>
+  <div>Rating: {{movie.likes}}</div>
+  <app-likes
+    (like)="like.emit()"
+    (dislike)="dislike.emit()"
+  ></app-likes>
+</div>

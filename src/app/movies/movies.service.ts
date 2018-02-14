@@ -3,6 +3,12 @@ import { Observable } from 'rxjs/Observable';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import 'rxjs/add/observable/of';
 
+const httpOptions = {
+  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+};
+
+const url = 'http://localhost:3001/movies';
+
 export interface Movie {
   name: string;
   id: string | number;
@@ -18,26 +24,27 @@ export interface Movie {
 
 @Injectable()
 export class MoviesService {
-  // private selectedMovieSource = new BehaviorSubject<Movie>(null);
-  // selectedMovie = this.selectedMovieSource.asObservable();
-  // movies: Observable<Movie[]> = this.moviesSource.asObservable();
-
   constructor(private http: HttpClient) { }
 
-  public getMovies() {
-    console.log(this.http.get('http://localhost:3001/movies'));
-    return this.http.get('http://localhost:3001/movies');
+  getMovies(): Observable<Movie[]> {
+    return this.http.get<Movie[]>(url);
   }
-  // public getMovieById(id: string) {
-  //   this.movies.find((movie: Movie) => movie.id === id);
-  // }
-  //
-  // public selectMovie(movie: Movie) {
-  //   this.movies.find(c => c.id === id)
-  //   this.selectedMovieSource.next(movie);
-  // }
-  //
-  // public updateMovie(movie: Movie, id: Movie['id']) {
-  //   // this.movies.find(c => c.id === id ? movie : c);
-  // }
+
+  like(movie): Observable<Movie> {
+    const body = {
+      id: movie.id,
+      likes: Number(movie.likes) + 1,
+    };
+
+    return this.http.patch<Movie>(`${url}/${movie.id}`, body, httpOptions);
+  }
+
+  dislike(movie): Observable<Movie> {
+    const body = {
+      id: movie.id,
+      likes: Number(movie.likes) - 1,
+    };
+
+    return this.http.patch<Movie>(`${url}/${movie.id}`, body, httpOptions);
+  }
 }
