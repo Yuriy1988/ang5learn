@@ -4,7 +4,10 @@
   <div>
     <b>Genres:</b> {{movie.genres.join(', ')}}
   </div>
-  <div class="poster_container">
+  <div
+    class="poster_container"
+    (click)="selectMovie.emit()"
+  >
     <img
       [src]="movie?.posterUrl"
       alt="There is no poster"
@@ -16,6 +19,10 @@
     (like)="like.emit()"
     (dislike)="dislike.emit()"
   ></app-likes>
+  <app-button
+    title="Edit"
+    (handleClick)="toEditPage.emit()"
+  ></app-button>
   <star-rating-comp
     [starType]="'svg'"
     [rating]="movie.stars"

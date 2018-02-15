@@ -1,7 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Movie, MoviesService } from './movies.service';
-import { Subscription } from "rxjs/Subscription";
-// import { Router } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-movies',
@@ -10,12 +9,11 @@ import { Subscription } from "rxjs/Subscription";
 })
 export class MoviesComponent implements OnInit, OnDestroy {
   public movies: Movie[];
-  private subscription: Subscription;
   // selectedMovie: Movie = null;
 
   constructor(
     private moviesService: MoviesService,
-    // private router: Router,
+    private router: Router,
   ) {}
 
   ngOnInit() {
@@ -23,7 +21,7 @@ export class MoviesComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.subscription.unsubscribe();
+    // this.subscription.unsubscribe();
   }
 
   private updateMovie(movies: Movie[], res: Movie) {
@@ -32,7 +30,7 @@ export class MoviesComponent implements OnInit, OnDestroy {
   }
 
   private getMovies(): void {
-    this.subscription = this.moviesService.getMovies()
+    this.moviesService.getMovies()
       .subscribe((response: Movie[]) => this.movies = response);
   }
 
@@ -61,11 +59,11 @@ export class MoviesComponent implements OnInit, OnDestroy {
       });
   }
 
-  // navigateToEdit(id) {
-  //   return this.router.navigate(['edit', id]);
-  // }
-  //
-  // selectMovie(movie: Movie): void {
-  //   // this.moviesService.selectMovie(movie);
-  // }
+  toEditPage(id: number) {
+    return this.router.navigate(['edit', id]);
+  }
+
+  selectMovie(movie: Movie): void {
+    this.moviesService.selectMovie(movie);
+  }
 }

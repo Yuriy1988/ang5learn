@@ -1,5 +1,10 @@
-.movie_list {
+.container {
   display: flex;
-  flex-wrap: wrap;
-  width: 110rem;
+
+  .movie_list {
+    display: flex;
+    flex-wrap: wrap;
+    width: 110rem;
+  }
 }
+

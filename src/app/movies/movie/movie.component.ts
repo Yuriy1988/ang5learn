@@ -11,6 +11,8 @@ export class MovieComponent {
   @Output() like = new EventEmitter<any>();
   @Output() dislike = new EventEmitter<any>();
   @Output() changeRating = new EventEmitter<any>();
+  @Output() selectMovie = new EventEmitter<any>();
+  @Output() toEditPage = new EventEmitter<any>();
 
   constructor() { }
 

@@ -7,6 +7,8 @@ import { MovieComponent } from './movie/movie.component';
 import { LikesComponent } from './likes/likes.component';
 import { StarRatingModule } from 'angular-star-rating';
 import { SharedModule } from '../shared/shared.module';
+import { MovieDetailsComponent } from './movie-details/movie-details.component';
+import { EditMovieComponent } from './edit-movie/edit-movie.component';
 
 @NgModule({
   imports: [
@@ -19,6 +21,8 @@ import { SharedModule } from '../shared/shared.module';
     MoviesComponent,
     MovieComponent,
     LikesComponent,
+    MovieDetailsComponent,
+    EditMovieComponent,
   ],
   providers: [
     MoviesService

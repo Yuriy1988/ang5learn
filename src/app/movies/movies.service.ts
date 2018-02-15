@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import 'rxjs/add/observable/of';
 
@@ -23,6 +24,9 @@ export interface Movie {
 
 @Injectable()
 export class MoviesService {
+  private selectedMovieSource = new BehaviorSubject<Movie>(null);
+  selectedMovie = this.selectedMovieSource.asObservable();
+
   constructor(private http: HttpClient) { }
 
   getMovies(): Observable<Movie[]> {
@@ -54,5 +58,13 @@ export class MoviesService {
     };
 
     return this.http.patch<Movie>(`${url}/${id}`, body, httpOptions);
+  }
+
+  selectMovie(movie: Movie) {
+    this.selectedMovieSource.next(movie);
+  }
+
+  getCurrentMovie(): Observable<Movie> {
+    return this.selectedMovie;
   }
 }
