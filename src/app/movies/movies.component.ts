@@ -1,14 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Movie, MoviesService } from './movies.service';
-import { Router } from '@angular/router';
+import { Subscription } from "rxjs/Subscription";
+// import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-movies',
   templateUrl: './movies.component.html',
   styleUrls: ['./movies.component.scss']
 })
-export class MoviesComponent implements OnInit {
-  movies: Movie[];
+export class MoviesComponent implements OnInit, OnDestroy {
+  public movies: Movie[];
+  private subscription: Subscription;
   // selectedMovie: Movie = null;
 
   constructor(
@@ -17,29 +19,46 @@ export class MoviesComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-   this.getMovies();
+    this.getMovies();
   }
 
-  getMovies(): void {
-    this.moviesService.getMovies()
-      .subscribe(response => this.movies = response);
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
-  likeMovie(id: string): void {
+  private updateMovie(movies: Movie[], res: Movie) {
+    return Object.assign(movies
+      .find((m: Movie) => m.id === res.id), res);
+  }
+
+  private getMovies(): void {
+    this.subscription = this.moviesService.getMovies()
+      .subscribe((response: Movie[]) => this.movies = response);
+  }
+
+  likeMovie(id: number): void {
     const movie: Movie = this.movies.find(m => m.id === id);
 
     this.moviesService.like(movie)
-      .subscribe(response => {
-        this.movies = this.movies.map(m => m.id === movie.id ? response : m );
+      .subscribe((res: Movie) => {
+        this.updateMovie(this.movies, res);
       });
   }
 
-  dislikeMovie(id: string): void {
+  dislikeMovie(id: number): void {
     const movie: Movie = this.movies.find(m => m.id === id);
 
     this.moviesService.dislike(movie)
-      .subscribe(response => this.movies = this.movies
-        .map(m => m.id === movie.id ? response : m ));
+      .subscribe((res: Movie) => {
+        this.updateMovie(this.movies, res);
+      });
+  }
+
+  changeRating(stars: number, id: number): void {
+    this.moviesService.changeRating(stars, id)
+      .subscribe((res: Movie) => {
+        this.updateMovie(this.movies, res);
+      });
   }
 
   // navigateToEdit(id) {

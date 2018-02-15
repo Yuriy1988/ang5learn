@@ -10,8 +10,7 @@ const httpOptions = {
 const url = 'http://localhost:3001/movies';
 
 export interface Movie {
-  name: string;
-  id: string | number;
+  id: number;
   title: string;
   posterUrl: string;
   stars: number;
@@ -30,7 +29,7 @@ export class MoviesService {
     return this.http.get<Movie[]>(url);
   }
 
-  like(movie): Observable<Movie> {
+  like(movie: Movie): Observable<Movie> {
     const body = {
       id: movie.id,
       likes: Number(movie.likes) + 1,
@@ -39,12 +38,21 @@ export class MoviesService {
     return this.http.patch<Movie>(`${url}/${movie.id}`, body, httpOptions);
   }
 
-  dislike(movie): Observable<Movie> {
+  dislike(movie: Movie): Observable<Movie> {
     const body = {
       id: movie.id,
       likes: Number(movie.likes) - 1,
     };
 
     return this.http.patch<Movie>(`${url}/${movie.id}`, body, httpOptions);
+  }
+
+  changeRating(stars: number, id: number): Observable<Movie> {
+    const body = {
+      id,
+      stars,
+    };
+
+    return this.http.patch<Movie>(`${url}/${id}`, body, httpOptions);
   }
 }

@@ -4,6 +4,7 @@
       [movie]="movie"
       (like)="likeMovie(movie.id)"
       (dislike)="dislikeMovie(movie.id)"
+      (changeRating)="changeRating($event.rating, movie.id)"
     ></app-movie>
   </li>
 </ul>

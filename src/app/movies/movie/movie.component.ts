@@ -10,6 +10,7 @@ export class MovieComponent {
   @Input() movie: Movie;
   @Output() like = new EventEmitter<any>();
   @Output() dislike = new EventEmitter<any>();
+  @Output() changeRating = new EventEmitter<any>();
 
   constructor() { }
 

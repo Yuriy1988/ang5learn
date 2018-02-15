@@ -5,6 +5,7 @@ import { MoviesService } from './movies.service';
 import { ReactiveFormsModule} from '@angular/forms';
 import { MovieComponent } from './movie/movie.component';
 import { LikesComponent } from './likes/likes.component';
+import { StarRatingModule } from 'angular-star-rating';
 import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
@@ -12,6 +13,7 @@ import { SharedModule } from '../shared/shared.module';
     CommonModule,
     ReactiveFormsModule,
     SharedModule,
+    StarRatingModule,
   ],
   declarations: [
     MoviesComponent,
