@@ -33,6 +33,10 @@ export class MoviesService {
     return this.http.get<Movie[]>(url);
   }
 
+  getMovieById(id: number): Observable<Movie> {
+    return this.http.get<Movie>(`${url}/${id}`);
+  }
+
   like(movie: Movie): Observable<Movie> {
     const body = {
       id: movie.id,
@@ -58,6 +62,10 @@ export class MoviesService {
     };
 
     return this.http.patch<Movie>(`${url}/${id}`, body, httpOptions);
+  }
+
+  edit(body: Movie) {
+    return this.http.patch<Movie>(`${url}/${body.id}`, body, httpOptions);
   }
 
   selectMovie(movie: Movie) {
