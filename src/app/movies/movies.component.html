@@ -1,15 +1,3 @@
 <div class="container">
-  <ul class="movie_list">
-    <li *ngFor="let movie of movies">
-      <app-movie
-        [movie]="movie"
-        (like)="likeMovie(movie.id)"
-        (dislike)="dislikeMovie(movie.id)"
-        (changeRating)="changeRating($event.rating, movie.id)"
-        (selectMovie)="selectMovie(movie)"
-        (toEditPage)="toEditPage(movie.id)"
-      ></app-movie>
-    </li>
-  </ul>
-  <app-movie-details></app-movie-details>
+  HI!
 </div>
