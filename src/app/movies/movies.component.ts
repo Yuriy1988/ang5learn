@@ -23,6 +23,7 @@ export class MoviesComponent implements OnInit {
     this.moviesService.getMovies()
       .subscribe(
         (response: Movie[]): void => { this.movies = response; },
+        (err) => { console.log('err', err) }
       );
   }
 }

@@ -8,7 +8,7 @@ const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
 
-const url = 'http://localhost:3001/movies';
+const url = 'https://gggggggg.comn';
 
 export interface Movie {
   id: number;
